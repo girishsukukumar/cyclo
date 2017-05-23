@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+
+<div id="demo">
+  <CENTER><h2>Bike Dashboard </h2>
+  <h4>I-Squared OT Labs</h4> </CENTER>
+  
+</div>
+
+
+<script>
+
+function loop()
+{
+   var xhttp = new XMLHttpRequest();
+   xhttp.onreadystatechange = function() 
+   {
+      if (this.readyState == 4 && this.status == 200) 
+      {
+         speed  = this.responseText;
+      }
+   };
+   xhttp.open("POST", "speed", true);
+   xhttp.send();
+
+   var chttp = new XMLHttpRequest();
+   chttp.onreadystatechange = function() 
+   {
+      if (this.readyState == 4 && this.status == 200) 
+      {
+         cadence  = this.responseText;
+      }
+   };
+   chttp.open("POST", "cadence", true);
+   chttp.send();
+
+   var str = "Speed: "+ speed.toString()+ " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp" + "Cadence:" + cadence.toString() ;
+   str = str.fontsize("6"); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('sensor').innerHTML = str;
+
+   str = "Heartbeat: "+ count.toString() 
+   str = str.fontsize("6"); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('hb').innerHTML = str;
+
+   mystartup();
+
+}
+function mystartup(){
+    setTimeout(function(){ loop(); }, 1000);
+
+}
+
+
+var kickstart = new mystartup();
+var count=0
+var speed ="0";
+var cadence ="0";
+</script>
+<div id="sensor"></div>
+<div id="hb"></div>
+<div id="distance"></div>
+</body>
+</html>
