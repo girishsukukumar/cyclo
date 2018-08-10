@@ -1,0 +1,3 @@
+sudo ./gps.py &
+sudo ./pub.py &
+sudo ./sensor.py &
