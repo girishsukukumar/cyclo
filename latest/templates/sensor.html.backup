@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+
+<div id="demo">
+  <CENTER><h1>Bike Dashboard </h1>
+  <h4>I-Squared OT Labs</h4> </CENTER>
+  
+</div>
+
+
+<script>
+function Reset()
+{
+   var xhttp = new XMLHttpRequest();
+   var resp;
+   xhttp.onreadystatechange = function() 
+   {
+      if (this.readyState == 4 && this.status == 200) 
+      {
+           resp = this.responseText;
+      }
+   };
+   xhttp.open("POST", "reset", true);
+   xhttp.send();
+}
+
+function loop()
+{
+   var xhttp = new XMLHttpRequest();
+   xhttp.onreadystatechange = function() 
+   {
+      if (this.readyState == 4 && this.status == 200)
+      {
+         var jsonObject = JSON.parse(this.responseText );
+         speed          = jsonObject.Speed;
+         cadence        = jsonObject.Cadence;
+         distance       = jsonObject.Distance;
+         totaldistance  = jsonObject.TotalDistance;
+         bikeStatus     = jsonObject.Status;
+         currentTime    = jsonObject.Time;
+         duration       = jsonObject.Duration;
+      }
+
+   };
+   xhttp.open("POST", "speed", true);
+   xhttp.send();
+
+
+
+   var str = "Speed: "+ speed.toString();
+   str = str.fontsize("6"); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('speed').innerHTML = str;
+   
+   var str = "Cadence: "+ cadence.toString();
+   str = str.fontsize("6"); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('cadence').innerHTML = str;
+
+
+   var str = "Distance: "+ distance.toString();
+   str = str.fontsize("6"); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('distance').innerHTML = str;
+
+   str = "Heartbeat: "+ count.toString() 
+   str = str.fontsize(fontSize); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('hb').innerHTML = str;
+
+   str = "Total Distance: "+ totaldistance;
+   str = str.fontsize(fontSize); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('totaldistance').innerHTML = str;
+   
+   str = "Time: "+ currentTime;
+   str = str.fontsize(fontSize); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('currenttime').innerHTML = str;
+   
+   str = "Duration: "+ duration;
+   str = str.fontsize(fontSize); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('rideduration').innerHTML = str;
+
+   
+   str = "Status: "+ bikeStatus;
+   str = str.fontsize(fontSize); // sets size of the text to 6
+   str = str.fontcolor("#006400"); // sets color of the text to #006400
+   str = str.bold(); // makes text bold
+   document.getElementById('bikestatus').innerHTML = str;
+   mystartup();
+
+}
+function mystartup(){
+    setTimeout(function(){ loop(); }, 1000);
+
+}
+
+
+var kickstart = new mystartup();
+var count         =  0
+var speed         =  0;
+var cadence       =  0;
+var distance      =  0;
+var totaldistance =  0;
+var bikeStatus    = "Stopped"
+var currentTime   = "Not Set";
+var duration      = 0;
+var fontSize      = "6"
+</script>
+
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+
+<table style="width:100%">
+<TR> 
+   <Td> <div id="speed"></div> </td>
+</TR>
+
+<TR> 
+   <Td> <div id="cadence"></div> </td>
+</TR>
+
+<TR> 
+   <TI> <Td> <div id="distance"></div> </td></TI>
+</TR>
+
+<TR>
+   <TI> <Td> <div id="totaldistance"></div> </td></TI>
+</TR>
+
+<TR> 
+   <TI> <Td> <div id="currenttime"></div> </td></TI>
+</TR>
+
+<TR>
+   <TI> <Td> <div id="rideduration"></div> </td></TI>
+</TR>
+<TR>
+   <TI> <Td> <div id="hb"></div> </td></TI>
+</TR>
+<TR>
+   <TI> <Td> <div id="bikestatus"></div> </td></TI>
+</TR>
+
+</Table>
+ <button type="button" onclick="Reset()">Reset All</button>
+</body>
+</html>
